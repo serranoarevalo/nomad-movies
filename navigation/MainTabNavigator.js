@@ -8,13 +8,28 @@ import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import TVScreen from "../screens/TVScreen";
 import TabBarIcon from "../components/TabBarIcon";
+import { BG_COLOR } from "../colors";
+
+const StachHeaderStyles = {
+  headerStyle: {
+    backgroundColor: BG_COLOR
+  },
+  headerTitleStyle: {
+    color: "white"
+  }
+};
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: "Movies",
+      ...StachHeaderStyles
+    }
+  }
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: "Movies",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -24,11 +39,16 @@ HomeStack.navigationOptions = {
 };
 
 const TVStack = createStackNavigator({
-  TV: TVScreen
+  TV: {
+    screen: TVScreen,
+    navigationOptions: {
+      title: "TV",
+      ...StachHeaderStyles
+    }
+  }
 });
 
 TVStack.navigationOptions = {
-  tabBarLabel: "TV",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -38,11 +58,16 @@ TVStack.navigationOptions = {
 };
 
 const SearchStack = createStackNavigator({
-  Search: SearchScreen
+  Search: {
+    screen: SearchScreen,
+    navigationOptions: {
+      title: "Search",
+      ...StachHeaderStyles
+    }
+  }
 });
 
 SearchStack.navigationOptions = {
-  tabBarLabel: "Search",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -59,8 +84,9 @@ export default createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showLabel: false,
       style: {
-        backgroundColor: "#2c3e50"
+        backgroundColor: BG_COLOR
       },
       activeTintColor: "white",
       inactiveTintColor: "#7f8c8d"
