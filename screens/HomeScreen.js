@@ -1,11 +1,17 @@
 import React from "react";
 import Axios from "axios";
-import { Text } from "react-native";
+import { Dimensions } from "react-native";
 import styled from "styled-components";
+import Swiper from "react-native-swiper";
 import LoadingContainer from "../components/LoadingContainer";
 import apiCall from "../apiCall";
+import SliderPoster from "../components/SliderPoster";
 
-const Container = styled.View`
+const { width, height } = Dimensions.get("window");
+
+const SLIDE_HEIGHT = height / 3;
+
+const Container = styled.ScrollView`
   background-color: black;
   flex: 1;
 `;
@@ -41,13 +47,27 @@ export default class MoviesScreen extends React.Component {
     }
   };
   render() {
-    const { loading } = this.state;
+    const { loading, nowPlaying } = this.state;
     if (loading) {
       return <LoadingContainer />;
     } else {
       return (
         <Container>
-          <Text>Movies</Text>
+          <Swiper
+            height={SLIDE_HEIGHT}
+            showsPagination={false}
+            autoplay={true}
+            index={-1}
+          >
+            {nowPlaying.filter(movie => movie.backdrop_path).map(movie => (
+              <SliderPoster
+                key={movie.id}
+                posterUrl={movie.backdrop_path}
+                title={movie.original_title}
+                overview={movie.overview}
+              />
+            ))}
+          </Swiper>
         </Container>
       );
     }
