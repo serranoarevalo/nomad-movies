@@ -4,6 +4,7 @@ import { Dimensions } from "react-native";
 import { apiImage } from "../apiCall";
 import { LinearGradient } from "expo";
 import { GREY_COLOR } from "../colors";
+import MovieCover from "./MovieCover";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -99,12 +100,7 @@ export default ({ posterUrl, title, overview = "", coverUrl, rating }) => (
     />
     <Overlay />
     <PosterContent>
-      <Cover
-        source={{
-          uri: apiImage(coverUrl, 500)
-        }}
-        resizeMode={"contain"}
-      />
+      <MovieCover imageUrl={apiImage(coverUrl, 500)} />
       <Content>
         <Title>{title}</Title>
         <Rating>⭐️ {rating} / 10</Rating>

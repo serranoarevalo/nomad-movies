@@ -1,9 +1,10 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import styled from "styled-components";
+import SectionTitle from "./SectionTitle";
 
 const Container = styled.View`
-  margin-top: 50px;
+  margin-top: 40px;
 `;
 
 const Title = styled.Text`
@@ -17,7 +18,7 @@ const Title = styled.Text`
 export default ({ title, items }) => {
   return (
     <Container>
-      <Title>{title}</Title>
+      <SectionTitle title={title} />
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}

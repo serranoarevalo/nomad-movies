@@ -7,7 +7,9 @@ import LoadingContainer from "../components/LoadingContainer";
 import apiCall from "../apiCall";
 import SliderPoster from "../components/SliderPoster";
 import ScrollingSection from "../components/ScrollingSection";
-import MovieCircle from "../components/MovieCircle";
+import Movie from "../components/Movie";
+import SectionTitle from "../components/SectionTitle";
+import MovieDetailed from "../components/MovieDetailed";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -15,7 +17,11 @@ const SLIDE_HEIGHT = height / 3;
 
 const Container = styled.ScrollView`
   background-color: black;
-  flex: 1;
+`;
+
+const RowContainer = styled.View`
+  margin-top: 50px;
+  margin-bottom: 50px;
 `;
 
 export default class MoviesScreen extends React.Component {
@@ -37,7 +43,7 @@ export default class MoviesScreen extends React.Component {
       );
       const {
         data: { results: upcoming }
-      } = await Axios.get(apiCall("movie/upcoming", "language=en-US&page=2"));
+      } = await Axios.get(apiCall("movie/upcoming", "page=2"));
       this.setState({
         nowPlaying,
         popularMovies,
@@ -49,7 +55,7 @@ export default class MoviesScreen extends React.Component {
     }
   };
   render() {
-    const { loading, nowPlaying, popularMovies } = this.state;
+    const { loading, nowPlaying, popularMovies, upcoming } = this.state;
     if (loading) {
       return <LoadingContainer />;
     } else {
@@ -80,7 +86,7 @@ export default class MoviesScreen extends React.Component {
             items={popularMovies
               .filter(movie => movie.poster_path)
               .map(movie => (
-                <MovieCircle
+                <Movie
                   key={movie.id}
                   coverUrl={movie.poster_path}
                   rating={movie.vote_average}
@@ -88,6 +94,18 @@ export default class MoviesScreen extends React.Component {
                 />
               ))}
           />
+          <RowContainer>
+            <SectionTitle title={"Coming Soon"} />
+            {upcoming.filter(movie => movie.poster_path).map(movie => (
+              <MovieDetailed
+                key={movie.id}
+                coverUrl={movie.poster_path}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                overview={movie.overview}
+              />
+            ))}
+          </RowContainer>
         </Container>
       );
     }

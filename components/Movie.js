@@ -1,21 +1,21 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { apiImage } from "../apiCall";
 import { GREY_COLOR } from "../colors";
+import MovieCover from "./MovieCover";
 
 const Touchable = styled.TouchableWithoutFeedback``;
 
 const Container = styled.View`
   margin-right: 25px;
-  width: 80px;
+  width: 120px;
   align-items: center;
 `;
 
-const Cover = styled.Image`
-  height: 80px;
-  width: 80px;
-  border-radius: 40px;
+const CircleImage = styled.Image`
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
   margin-bottom: 10px;
 `;
 
@@ -31,13 +31,17 @@ const Score = styled.Text`
   font-size: 10px;
 `;
 
-export default ({ coverUrl, title, rating }) => (
+export default ({ coverUrl, title, rating, circle }) => (
   <Touchable>
     <Container>
-      <TouchableOpacity>
-        <Cover source={{ uri: apiImage(coverUrl) }} />
-      </TouchableOpacity>
-      <Title>{title.length > 8 ? `${title.substring(0, 8)}...` : title}</Title>
+      {circle ? (
+        <CircleImage source={{ uri: apiImage(coverUrl) }} />
+      ) : (
+        <MovieCover imageUrl={apiImage(coverUrl)} />
+      )}
+      <Title>
+        {title.length > 15 ? `${title.substring(0, 15)}...` : title}
+      </Title>
       <Score>
         ⭐️ {rating}
         /10
