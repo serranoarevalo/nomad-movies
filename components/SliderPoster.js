@@ -5,7 +5,7 @@ import { apiImage } from "../apiCall";
 import { LinearGradient } from "expo";
 import { GREY_COLOR } from "../colors";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 
 const SLIDE_HEIGHT = height / 3;
 
@@ -50,6 +50,8 @@ const Subtitle = styled.Text`
 const Cover = styled.Image`
   height: 70%;
   width: 30%;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const Content = styled.View`
@@ -79,7 +81,7 @@ const Button = styled.TouchableOpacity`
   background-color: #e74c3c;
   border-radius: 5px;
   overflow: hidden;
-  padding: 5px;
+  padding: 8px;
 `;
 
 const ButtonText = styled.Text`

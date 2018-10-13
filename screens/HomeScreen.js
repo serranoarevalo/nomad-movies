@@ -1,13 +1,15 @@
 import React from "react";
 import Axios from "axios";
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, Text } from "react-native";
 import styled from "styled-components";
 import Swiper from "react-native-swiper";
 import LoadingContainer from "../components/LoadingContainer";
 import apiCall from "../apiCall";
 import SliderPoster from "../components/SliderPoster";
+import ScrollingSection from "../components/ScrollingSection";
+import MovieCircle from "../components/MovieCircle";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 
 const SLIDE_HEIGHT = height / 3;
 
@@ -20,25 +22,25 @@ export default class MoviesScreen extends React.Component {
   state = {
     loading: true,
     nowPlaying: [],
-    latestMovies: [],
+    popularMovies: [],
     upcoming: []
   };
   componentDidMount = async () => {
     try {
       const {
         data: { results: nowPlaying }
-      } = await Axios.get(
-        apiCall("movie/now_playing", "language=en-US&page=1")
-      );
+      } = await Axios.get(apiCall("movie/popular", "language=en-US&page=1"));
       const {
-        data: { results: latestMovies }
-      } = await Axios.get(apiCall("movie/latest", "language=en-US"));
+        data: { results: popularMovies }
+      } = await Axios.get(
+        apiCall("movie/now_playing", "language=ko&page=2&region=kr")
+      );
       const {
         data: { results: upcoming }
       } = await Axios.get(apiCall("movie/upcoming", "language=en-US&page=2"));
       this.setState({
         nowPlaying,
-        latestMovies,
+        popularMovies,
         upcoming,
         loading: false
       });
@@ -47,13 +49,18 @@ export default class MoviesScreen extends React.Component {
     }
   };
   render() {
-    const { loading, nowPlaying } = this.state;
+    const { loading, nowPlaying, popularMovies } = this.state;
     if (loading) {
       return <LoadingContainer />;
     } else {
       return (
         <Container>
-          <Swiper height={SLIDE_HEIGHT} showsPagination={false} autoplay={true}>
+          <Swiper
+            height={SLIDE_HEIGHT}
+            showsPagination={false}
+            autoplay={true}
+            autoplayTimeout={3}
+          >
             {nowPlaying
               .filter(movie => movie.backdrop_path && movie.poster_path)
               .map(movie => (
@@ -68,6 +75,19 @@ export default class MoviesScreen extends React.Component {
                 </View>
               ))}
           </Swiper>
+          <ScrollingSection
+            title={"Popular Movies"}
+            items={popularMovies
+              .filter(movie => movie.poster_path)
+              .map(movie => (
+                <MovieCircle
+                  key={movie.id}
+                  coverUrl={movie.poster_path}
+                  rating={movie.vote_average}
+                  title={movie.title}
+                />
+              ))}
+          />
         </Container>
       );
     }
