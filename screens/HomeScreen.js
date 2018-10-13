@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import { Dimensions, View, Text } from "react-native";
+import { Dimensions, View } from "react-native";
 import styled from "styled-components";
 import Swiper from "react-native-swiper";
 import LoadingContainer from "../components/LoadingContainer";
