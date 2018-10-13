@@ -28,7 +28,7 @@ export default class MoviesScreen extends React.Component {
       const {
         data: { results: nowPlaying }
       } = await Axios.get(
-        apiCall("movie/now_playing", "language=en-US&page=1&region=kr")
+        apiCall("movie/now_playing", "language=en-US&page=1")
       );
       const {
         data: { results: latestMovies }
@@ -54,15 +54,19 @@ export default class MoviesScreen extends React.Component {
       return (
         <Container>
           <Swiper height={SLIDE_HEIGHT} showsPagination={false} autoplay={true}>
-            {nowPlaying.filter(movie => movie.backdrop_path).map(movie => (
-              <View style={{ flex: 1 }} key={movie.id}>
-                <SliderPoster
-                  posterUrl={movie.backdrop_path}
-                  title={movie.original_title}
-                  overview={movie.overview}
-                />
-              </View>
-            ))}
+            {nowPlaying
+              .filter(movie => movie.backdrop_path && movie.poster_path)
+              .map(movie => (
+                <View style={{ flex: 1 }} key={movie.id}>
+                  <SliderPoster
+                    posterUrl={movie.backdrop_path}
+                    title={movie.original_title}
+                    overview={movie.overview}
+                    coverUrl={movie.poster_path}
+                    rating={movie.vote_average}
+                  />
+                </View>
+              ))}
           </Swiper>
         </Container>
       );
