@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { AppLoading, Font, Icon } from "expo";
+import MainTabNavigator from "./navigation/MainTabNavigator";
 
 export default class App extends React.Component {
   state = {
@@ -9,7 +10,7 @@ export default class App extends React.Component {
   render() {
     const { loadCompleted } = this.state;
     if (loadCompleted) {
-      return <View />;
+      return <MainTabNavigator />;
     } else {
       return (
         <AppLoading
