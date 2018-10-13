@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import { Dimensions } from "react-native";
+import { Dimensions, View } from "react-native";
 import styled from "styled-components";
 import Swiper from "react-native-swiper";
 import LoadingContainer from "../components/LoadingContainer";
@@ -53,19 +53,15 @@ export default class MoviesScreen extends React.Component {
     } else {
       return (
         <Container>
-          <Swiper
-            height={SLIDE_HEIGHT}
-            showsPagination={false}
-            autoplay={true}
-            index={-1}
-          >
+          <Swiper height={SLIDE_HEIGHT} showsPagination={false} autoplay={true}>
             {nowPlaying.filter(movie => movie.backdrop_path).map(movie => (
-              <SliderPoster
-                key={movie.id}
-                posterUrl={movie.backdrop_path}
-                title={movie.original_title}
-                overview={movie.overview}
-              />
+              <View style={{ flex: 1 }} key={movie.id}>
+                <SliderPoster
+                  posterUrl={movie.backdrop_path}
+                  title={movie.original_title}
+                  overview={movie.overview}
+                />
+              </View>
             ))}
           </Swiper>
         </Container>
