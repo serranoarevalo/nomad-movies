@@ -3,6 +3,7 @@ import { StyleSheet, StatusBar, Platform } from "react-native";
 import { AppLoading, Font } from "expo";
 import { Ionicons } from "@expo/vector-icons";
 import MainTabNavigator from "./navigation/MainTabNavigator";
+import { BG_COLOR } from "./colors";
 
 export default class App extends React.Component {
   state = {
@@ -47,7 +48,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: BG_COLOR,
     alignItems: "center",
     justifyContent: "center"
   }

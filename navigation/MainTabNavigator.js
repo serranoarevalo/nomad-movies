@@ -12,7 +12,8 @@ import { BG_COLOR, INACTIVE_COLOR, TINT_COLOR } from "../colors";
 
 const StachHeaderStyles = {
   headerStyle: {
-    backgroundColor: BG_COLOR
+    backgroundColor: BG_COLOR,
+    borderBottomWidth: 0
   },
   headerTitleStyle: {
     color: "white"
