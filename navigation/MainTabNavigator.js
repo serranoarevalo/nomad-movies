@@ -32,7 +32,7 @@ TVStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? `ios-tv` : "md-tv"}
+      name={Platform.OS === "ios" ? "ios-tv" : "md-tv"}
     />
   )
 };

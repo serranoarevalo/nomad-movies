@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { AppLoading, Font, Icon } from "expo";
+import { Ionicons } from "@expo/vector-icons";
 import MainTabNavigator from "./navigation/MainTabNavigator";
 
 export default class App extends React.Component {
@@ -24,7 +25,7 @@ export default class App extends React.Component {
   _loadAssets = async () => {
     return Promise.all([
       Font.loadAsync({
-        ...Icon.Ionicons.font
+        ...Ionicons.font
       })
     ]);
   };
