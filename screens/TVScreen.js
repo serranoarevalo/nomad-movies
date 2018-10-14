@@ -14,7 +14,7 @@ const Container = styled.ScrollView`
 `;
 
 const RowContainer = styled.View`
-  margin-bottom: 50px;
+  margin-top: 40px;
 `;
 
 export default class SearchScreen extends React.Component {
