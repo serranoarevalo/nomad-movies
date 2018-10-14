@@ -2,10 +2,11 @@ import React from "react";
 import { Dimensions, Platform } from "react-native";
 import styled from "styled-components";
 import Axios from "axios";
+import { LinearGradient, WebBrowser } from "expo";
+import { Ionicons } from "@expo/vector-icons";
 import LoadingContainer from "../components/LoadingContainer";
 import { apiImage } from "../apiCall";
 import MovieCover from "../components/MovieCover";
-import { LinearGradient } from "expo";
 import { GREY_COLOR } from "../colors";
 import apiCall from "../apiCall";
 import { formatDate } from "../config";
@@ -74,6 +75,20 @@ const Genres = styled.View`
   width: 90%;
 `;
 
+const YTContent = styled.View`
+  flex-direction: row;
+`;
+
+const YTButton = styled.TouchableOpacity`
+  margin-bottom: 10px;
+`;
+
+const YTLink = styled.Text`
+  color: white;
+  margin-right: 10px;
+  width: 80%;
+`;
+
 export default class DetailScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -111,32 +126,34 @@ export default class DetailScreen extends React.Component {
       try {
         const {
           data: {
-            backdrop_path,
-            original_title,
+            backdrop_path: posterUrl,
+            original_title: title,
             overview,
-            vote_average,
+            vote_average: rating,
             genres,
-            poster_path,
-            spoken_languages,
-            release_date,
+            poster_path: coverUrl,
+            spoken_languages: spokenLanguages,
+            release_date: releaseDate,
             runtime,
-            status
+            status,
+            videos: { results: videos }
           }
         } = await Axios.get(
           apiCall(`movie/${id}`, "append_to_response=videos")
         );
         this.setState({
-          posterUrl: backdrop_path,
-          coverUrl: poster_path,
-          title: original_title,
+          posterUrl,
+          coverUrl,
+          title,
           overview,
-          rating: vote_average,
+          rating,
           genres,
           loading: false,
-          spokenLanguages: spoken_languages,
-          releaseDate: release_date,
+          spokenLanguages,
+          releaseDate,
           runtime,
-          status
+          status,
+          videos
         });
       } catch (error) {
         this.setState({ loading: false });
@@ -146,30 +163,30 @@ export default class DetailScreen extends React.Component {
       try {
         const {
           data: {
-            backdrop_path,
+            backdrop_path: posterUrl,
             genres,
-            original_name,
-            poster_path,
+            original_name: title,
+            poster_path: coverUrl,
             overview,
-            vote_average,
-            first_air_date,
-            last_air_date,
-            number_of_episodes,
-            number_of_seasons,
+            vote_average: rating,
+            first_air_date: firstAirDate,
+            last_air_date: lastAirDate,
+            number_of_episodes: episodeNumber,
+            number_of_seasons: seasonNumber,
             status
           }
         } = await Axios.get(apiCall(`tv/${id}`, "append_to_response=videos"));
         this.setState({
-          posterUrl: backdrop_path,
-          coverUrl: poster_path,
+          posterUrl,
+          coverUrl,
           genres,
           overview,
-          rating: vote_average,
-          title: original_name,
-          firstAirDate: first_air_date,
-          lastEpisode: last_air_date,
-          episodeNumber: number_of_episodes,
-          seasonNumber: number_of_seasons,
+          rating,
+          title,
+          firstAirDate,
+          lastAirDate,
+          episodeNumber,
+          seasonNumber,
           status,
           loading: false
         });
@@ -193,10 +210,11 @@ export default class DetailScreen extends React.Component {
       isMovie,
       runtime,
       firstAirDate,
-      lastEpisode,
+      lastAirDate,
       episodeNumber,
       seasonNumber,
-      status
+      status,
+      videos
     } = this.state;
     return (
       <Container>
@@ -264,6 +282,26 @@ export default class DetailScreen extends React.Component {
                 <Text>{runtime} minutes</Text>
               </Section>
             ) : null}
+            {videos && videos.length > 0 ? (
+              <Section>
+                <SectionTitle>Videos</SectionTitle>
+                {videos.map(video => (
+                  <YTButton
+                    key={video.id}
+                    onPress={() => this._openYT(video.key)}
+                  >
+                    <YTContent>
+                      <YTLink>{video.name}</YTLink>
+                      <Ionicons
+                        name={"logo-youtube"}
+                        size={22}
+                        color={"white"}
+                      />
+                    </YTContent>
+                  </YTButton>
+                ))}
+              </Section>
+            ) : null}
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -273,10 +311,10 @@ export default class DetailScreen extends React.Component {
                 <Text>{formatDate(firstAirDate)}</Text>
               </Section>
             ) : null}
-            {lastEpisode ? (
+            {lastAirDate ? (
               <Section>
                 <SectionTitle>Latest Aired Episode</SectionTitle>
-                <Text>{formatDate(lastEpisode)}</Text>
+                <Text>{formatDate(lastAirDate)}</Text>
               </Section>
             ) : null}
             {episodeNumber ? (
@@ -299,8 +337,12 @@ export default class DetailScreen extends React.Component {
             <Text>{status}</Text>
           </Section>
         ) : null}
+
         {loading ? <LoadingContainer /> : null}
       </Container>
     );
   }
+  _openYT = async id => {
+    await WebBrowser.openBrowserAsync(`https://www.youtube.com/watch?v=${id}`);
+  };
 }
