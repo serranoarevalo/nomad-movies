@@ -16,7 +16,6 @@ export default createStackNavigator(
     }
   },
   {
-    mode: "modal",
     navigationOptions: {
       ...HeaderStyles
     }

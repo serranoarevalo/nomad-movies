@@ -91,7 +91,16 @@ const ButtonText = styled.Text`
 `;
 
 export default withNavigation(
-  ({ navigation, posterUrl, title, overview = "", coverUrl, rating }) => (
+  ({
+    navigation,
+    posterUrl,
+    title,
+    overview = "",
+    coverUrl,
+    rating,
+    id,
+    isMovie = true
+  }) => (
     <Slide>
       <SlidePoster
         source={{
@@ -109,20 +118,20 @@ export default withNavigation(
             {overview && overview.substring(0, 140)}
             ...
           </Subtitle>
-          <Button>
-            <ButtonText
-              onPress={() =>
-                navigation.navigate("Detail", {
-                  title,
-                  coverUrl,
-                  posterUrl,
-                  rating,
-                  overview
-                })
-              }
-            >
-              View details
-            </ButtonText>
+          <Button
+            onPress={() =>
+              navigation.navigate("Detail", {
+                isMovie,
+                id,
+                title,
+                coverUrl,
+                posterUrl,
+                rating,
+                overview
+              })
+            }
+          >
+            <ButtonText>View details</ButtonText>
           </Button>
         </Content>
       </PosterContent>

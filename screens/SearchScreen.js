@@ -61,6 +61,7 @@ export default class SearchScreen extends React.Component {
                       coverUrl={movie.poster_path}
                       rating={movie.vote_average}
                       title={movie.title}
+                      id={movie.id}
                     />
                   ))}
               />
@@ -76,6 +77,8 @@ export default class SearchScreen extends React.Component {
                     coverUrl={show.poster_path}
                     rating={show.vote_average}
                     title={show.original_name}
+                    id={show.id}
+                    isMovie={false}
                   />
                 ))}
               />

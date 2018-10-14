@@ -33,12 +33,14 @@ const Score = styled.Text`
 `;
 
 export default withNavigation(
-  ({ navigation, coverUrl, title, rating, circle }) => (
+  ({ navigation, coverUrl, title, rating, circle, id, isMovie = true }) => (
     <Touchable
       onPress={() =>
         navigation.navigate("Detail", {
+          id,
+          isMovie,
           title,
-          posterUrl: coverUrl,
+          coverUrl,
           rating
         })
       }

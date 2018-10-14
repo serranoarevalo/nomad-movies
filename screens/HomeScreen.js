@@ -65,7 +65,7 @@ export default class MoviesScreen extends React.Component {
             height={SLIDE_HEIGHT}
             showsPagination={false}
             autoplay={true}
-            autoplayTimeout={3}
+            autoplayTimeout={5}
           >
             {nowPlaying
               .filter(movie => movie.backdrop_path && movie.poster_path)
@@ -77,6 +77,7 @@ export default class MoviesScreen extends React.Component {
                     overview={movie.overview}
                     coverUrl={movie.poster_path}
                     rating={movie.vote_average}
+                    id={movie.id}
                   />
                 </View>
               ))}
@@ -92,6 +93,7 @@ export default class MoviesScreen extends React.Component {
                     coverUrl={movie.poster_path}
                     rating={movie.vote_average}
                     title={movie.title}
+                    id={movie.id}
                   />
                 ))}
             />
@@ -105,6 +107,7 @@ export default class MoviesScreen extends React.Component {
                 title={movie.title}
                 releaseDate={movie.release_date}
                 overview={movie.overview}
+                id={movie.id}
               />
             ))}
           </RowContainer>

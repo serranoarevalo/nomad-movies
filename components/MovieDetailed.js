@@ -41,7 +41,15 @@ const Overview = styled.Text`
 `;
 
 export default withNavigation(
-  ({ navigation, coverUrl, title, overview, releaseDate = "" }) => {
+  ({
+    navigation,
+    coverUrl,
+    title,
+    overview,
+    releaseDate = "",
+    id,
+    isMovie = true
+  }) => {
     const date = new Date(
       releaseDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
     );
@@ -49,6 +57,8 @@ export default withNavigation(
       <TouchableWithoutFeedback
         onPress={() =>
           navigation.navigate("Detail", {
+            isMovie,
+            id,
             coverUrl,
             title,
             overview

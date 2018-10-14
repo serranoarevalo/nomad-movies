@@ -61,6 +61,8 @@ export default class SearchScreen extends React.Component {
                   coverUrl={show.poster_path}
                   title={show.original_name}
                   rating={show.vote_average}
+                  id={show.id}
+                  isMovie={false}
                 />
               ))}
             />
@@ -76,6 +78,8 @@ export default class SearchScreen extends React.Component {
                     coverUrl={show.poster_path}
                     title={show.original_name}
                     rating={show.vote_average}
+                    id={show.id}
+                    isMovie={false}
                   />
                 ))}
             />
@@ -88,6 +92,8 @@ export default class SearchScreen extends React.Component {
                 coverUrl={show.poster_path}
                 title={show.original_name}
                 overview={show.overview}
+                id={show.id}
+                isMovie={false}
               />
             ))}
           </RowContainer>
