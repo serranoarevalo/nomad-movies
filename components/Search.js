@@ -13,17 +13,19 @@ const Input = styled.TextInput`
   margin-left: ${Platform.OS === "ios" ? 0 : "10px"};
   border-radius: 5px;
   color: white;
-  text-align: center;
+  text-align: ${Platform.OS === "ios" ? "center" : "left"};
+  font-weight: ${Platform.OS === "ios" ? "600" : "800"};
+  font-size: 18px;
 `;
 
 export default ({ value, onChange, onSubmitEditing }) => (
   <Input
     value={value}
     onChangeText={onChange}
-    placeholder="Search"
+    placeholder="Search..."
     underlineColorAndroid={"black"}
     returnKeyType={"search"}
     onSubmitEditing={onSubmitEditing}
-    placeholderTextColor={"white"}
+    placeholderTextColor={GREY_COLOR}
   />
 );
