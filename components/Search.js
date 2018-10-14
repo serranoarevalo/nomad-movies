@@ -6,13 +6,14 @@ import { GREY_COLOR, INACTIVE_COLOR } from "../colors";
 const { width, height } = Dimensions.get("window");
 
 const Input = styled.TextInput`
-  background-color: ${Platform.OS === "ios" ? INACTIVE_COLOR : "black"};
+  background-color: black;
   width: ${Platform.OS === "ios" ? width - 100 : width - 10};
-  padding: 5px;
+  padding: 10px;
   font-size: 16px;
   margin-left: ${Platform.OS === "ios" ? 0 : "10px"};
   border-radius: 5px;
   color: white;
+  text-align: center;
 `;
 
 export default ({ value, onChange, onSubmitEditing }) => (
@@ -23,5 +24,6 @@ export default ({ value, onChange, onSubmitEditing }) => (
     underlineColorAndroid={"black"}
     returnKeyType={"search"}
     onSubmitEditing={onSubmitEditing}
+    placeholderTextColor={"white"}
   />
 );

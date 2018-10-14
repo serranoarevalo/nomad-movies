@@ -48,7 +48,7 @@ export default class SearchScreen extends React.Component {
       return <LoadingContainer />;
     } else {
       return (
-        <Container>
+        <Container contentContainerStyle={{ paddingBottom: 50 }}>
           {movieResults.length > 0 ? (
             <RowContainer>
               <ScrollingSection

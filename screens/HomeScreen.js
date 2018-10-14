@@ -58,7 +58,7 @@ export default class MoviesScreen extends React.Component {
       return <LoadingContainer />;
     } else {
       return (
-        <Container>
+        <Container contentContainerStyle={{ paddingBottom: 50 }}>
           <Swiper
             height={SLIDE_HEIGHT}
             showsPagination={false}

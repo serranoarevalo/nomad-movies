@@ -51,7 +51,7 @@ export default class SearchScreen extends React.Component {
       return <LoadingContainer />;
     } else {
       return (
-        <Container>
+        <Container contentContainerStyle={{ paddingBottom: 50 }}>
           <RowContainer>
             <ScrollingSection
               title={"Airing Today"}

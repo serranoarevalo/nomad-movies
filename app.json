@@ -1,25 +1,36 @@
 {
   "expo": {
-    "name": "nomad-movies",
-    "description": "This project is really great.",
+    "name": "Nomad Movies",
+    "githubUrl": "https://github.com/serranoarevalo/nomad-movies",
+    "primaryColor": "#000000",
+    "description": "Beautiful App to find Movies and TV Shows",
     "slug": "nomad-movies",
     "privacy": "unlisted",
     "sdkVersion": "30.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconCorn.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splashOne.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#000000"
     }
   }
 }
