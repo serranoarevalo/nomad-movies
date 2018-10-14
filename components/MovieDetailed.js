@@ -38,7 +38,7 @@ const Overview = styled.Text`
   font-weight: 300;
 `;
 
-export default ({ coverUrl, title, overview, releaseDate }) => {
+export default ({ coverUrl, title, overview, releaseDate = "" }) => {
   const date = new Date(
     releaseDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
   );
@@ -47,10 +47,12 @@ export default ({ coverUrl, title, overview, releaseDate }) => {
       <MovieCover imageUrl={apiImage(coverUrl)} />
       <Content>
         <Title>{title}</Title>
-        <ReleaseDate>{`${date.getDate()} ${
-          MONTHS[date.getMonth()]
-        } ${date.getFullYear()}
+        {releaseDate ? (
+          <ReleaseDate>{`${date.getDate()} ${
+            MONTHS[date.getMonth()]
+          } ${date.getFullYear()}
         `}</ReleaseDate>
+        ) : null}
         <Overview>
           {overview.length > 90 ? `${overview.substring(0, 89)}...` : overview}
         </Overview>
