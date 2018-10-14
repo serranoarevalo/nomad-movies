@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Dimensions } from "react-native";
 import { apiImage } from "../apiCall";
-import { LinearGradient } from "expo";
+import { withNavigation } from "react-navigation";
 import { GREY_COLOR } from "../colors";
 import MovieCover from "./MovieCover";
 
@@ -90,28 +90,42 @@ const ButtonText = styled.Text`
   font-size: 12px;
 `;
 
-export default ({ posterUrl, title, overview = "", coverUrl, rating }) => (
-  <Slide>
-    <SlidePoster
-      source={{
-        uri: apiImage(posterUrl, 500)
-      }}
-      resizeMode={"cover"}
-    />
-    <Overlay />
-    <PosterContent>
-      <MovieCover imageUrl={apiImage(coverUrl, 500)} />
-      <Content>
-        <Title>{title}</Title>
-        <Rating>⭐️ {rating} / 10</Rating>
-        <Subtitle>
-          {overview && overview.substring(0, 140)}
-          ...
-        </Subtitle>
-        <Button>
-          <ButtonText>View details</ButtonText>
-        </Button>
-      </Content>
-    </PosterContent>
-  </Slide>
+export default withNavigation(
+  ({ navigation, posterUrl, title, overview = "", coverUrl, rating }) => (
+    <Slide>
+      <SlidePoster
+        source={{
+          uri: apiImage(posterUrl, 500)
+        }}
+        resizeMode={"cover"}
+      />
+      <Overlay />
+      <PosterContent>
+        <MovieCover imageUrl={apiImage(coverUrl, 500)} />
+        <Content>
+          <Title>{title}</Title>
+          <Rating>⭐️ {rating} / 10</Rating>
+          <Subtitle>
+            {overview && overview.substring(0, 140)}
+            ...
+          </Subtitle>
+          <Button>
+            <ButtonText
+              onPress={() =>
+                navigation.navigate("Detail", {
+                  title,
+                  coverUrl,
+                  posterUrl,
+                  rating,
+                  overview
+                })
+              }
+            >
+              View details
+            </ButtonText>
+          </Button>
+        </Content>
+      </PosterContent>
+    </Slide>
+  )
 );

@@ -1,3 +1,5 @@
+import { BG_COLOR } from "./colors";
+
 export const MONTHS = [
   "January",
   "February",
@@ -12,3 +14,14 @@ export const MONTHS = [
   "November",
   "December"
 ];
+
+export const HeaderStyles = {
+  headerStyle: {
+    backgroundColor: BG_COLOR,
+    borderBottomWidth: 0
+  },
+  headerTitleStyle: {
+    color: "white"
+  },
+  headerTintColor: "white"
+};

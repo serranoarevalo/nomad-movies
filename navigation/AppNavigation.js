@@ -1,8 +1,24 @@
 import React from "react";
-import { createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 
 import MainTabNavigator from "./MainTabNavigator";
+import DetailScreen from "../screens/DetailScreen";
+import { HeaderStyles } from "../config";
 
-export default createSwitchNavigator({
-  Main: MainTabNavigator
-});
+export default createStackNavigator(
+  {
+    Main: {
+      screen: MainTabNavigator,
+      navigationOptions: { header: null }
+    },
+    Detail: {
+      screen: DetailScreen
+    }
+  },
+  {
+    mode: "modal",
+    navigationOptions: {
+      ...HeaderStyles
+    }
+  }
+);

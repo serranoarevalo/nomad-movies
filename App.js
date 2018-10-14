@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, StatusBar, Platform } from "react-native";
 import { AppLoading, Font } from "expo";
 import { Ionicons } from "@expo/vector-icons";
-import MainTabNavigator from "./navigation/MainTabNavigator";
+import AppNavigation from "./navigation/AppNavigation";
 import { BG_COLOR } from "./colors";
 
 export default class App extends React.Component {
@@ -15,7 +15,7 @@ export default class App extends React.Component {
       return (
         <React.Fragment>
           {Platform.OS === "ios" && <StatusBar barStyle={"light-content"} />}
-          <MainTabNavigator />
+          <AppNavigation />
         </React.Fragment>
       );
     } else {

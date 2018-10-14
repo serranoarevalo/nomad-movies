@@ -1,5 +1,7 @@
 import React from "react";
+import { TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components";
+import { withNavigation } from "react-navigation";
 import MovieCover from "./MovieCover";
 import { apiImage } from "../apiCall";
 import { INACTIVE_COLOR, GREY_COLOR } from "../colors";
@@ -38,25 +40,39 @@ const Overview = styled.Text`
   font-weight: 300;
 `;
 
-export default ({ coverUrl, title, overview, releaseDate = "" }) => {
-  const date = new Date(
-    releaseDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
-  );
-  return (
-    <Container>
-      <MovieCover imageUrl={apiImage(coverUrl)} />
-      <Content>
-        <Title>{title}</Title>
-        {releaseDate ? (
-          <ReleaseDate>{`${date.getDate()} ${
-            MONTHS[date.getMonth()]
-          } ${date.getFullYear()}
+export default withNavigation(
+  ({ navigation, coverUrl, title, overview, releaseDate = "" }) => {
+    const date = new Date(
+      releaseDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
+    );
+    return (
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("Detail", {
+            coverUrl,
+            title,
+            overview
+          })
+        }
+      >
+        <Container>
+          <MovieCover imageUrl={apiImage(coverUrl)} />
+          <Content>
+            <Title>{title}</Title>
+            {releaseDate ? (
+              <ReleaseDate>{`${date.getDate()} ${
+                MONTHS[date.getMonth()]
+              } ${date.getFullYear()}
         `}</ReleaseDate>
-        ) : null}
-        <Overview>
-          {overview.length > 90 ? `${overview.substring(0, 89)}...` : overview}
-        </Overview>
-      </Content>
-    </Container>
-  );
-};
+            ) : null}
+            <Overview>
+              {overview.length > 90
+                ? `${overview.substring(0, 89)}...`
+                : overview}
+            </Overview>
+          </Content>
+        </Container>
+      </TouchableWithoutFeedback>
+    );
+  }
+);
