@@ -25,3 +25,12 @@ export const HeaderStyles = {
   },
   headerTintColor: "white"
 };
+
+export const formatDate = date => {
+  const cleanDate = new Date(
+    date.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
+  );
+  return `${cleanDate.getDate()} ${
+    MONTHS[cleanDate.getMonth()]
+  } ${cleanDate.getFullYear()}`;
+};

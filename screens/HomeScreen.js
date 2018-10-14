@@ -38,9 +38,7 @@ export default class MoviesScreen extends React.Component {
       } = await Axios.get(apiCall("movie/popular", "language=en-US&page=1"));
       const {
         data: { results: popularMovies }
-      } = await Axios.get(
-        apiCall("movie/now_playing", "language=ko&page=2&region=kr")
-      );
+      } = await Axios.get(apiCall("movie/now_playing", "page=2"));
       const {
         data: { results: upcoming }
       } = await Axios.get(apiCall("movie/upcoming", "page=2"));

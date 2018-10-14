@@ -5,7 +5,7 @@ import { withNavigation } from "react-navigation";
 import MovieCover from "./MovieCover";
 import { apiImage } from "../apiCall";
 import { INACTIVE_COLOR, GREY_COLOR } from "../colors";
-import { MONTHS } from "../config";
+import { formatDate } from "../config";
 
 const Container = styled.View`
   padding: 0 20px;
@@ -49,40 +49,32 @@ export default withNavigation(
     releaseDate = "",
     id,
     isMovie = true
-  }) => {
-    const date = new Date(
-      releaseDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")
-    );
-    return (
-      <TouchableWithoutFeedback
-        onPress={() =>
-          navigation.navigate("Detail", {
-            isMovie,
-            id,
-            coverUrl,
-            title,
-            overview
-          })
-        }
-      >
-        <Container>
-          <MovieCover imageUrl={apiImage(coverUrl)} />
-          <Content>
-            <Title>{title}</Title>
-            {releaseDate ? (
-              <ReleaseDate>{`${date.getDate()} ${
-                MONTHS[date.getMonth()]
-              } ${date.getFullYear()}
-        `}</ReleaseDate>
-            ) : null}
-            <Overview>
-              {overview.length > 90
-                ? `${overview.substring(0, 89)}...`
-                : overview}
-            </Overview>
-          </Content>
-        </Container>
-      </TouchableWithoutFeedback>
-    );
-  }
+  }) => (
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigation.navigate("Detail", {
+          isMovie,
+          id,
+          coverUrl,
+          title,
+          overview
+        })
+      }
+    >
+      <Container>
+        <MovieCover imageUrl={apiImage(coverUrl)} />
+        <Content>
+          <Title>{title}</Title>
+          {releaseDate ? (
+            <ReleaseDate>{formatDate(releaseDate)}</ReleaseDate>
+          ) : null}
+          <Overview>
+            {overview.length > 90
+              ? `${overview.substring(0, 89)}...`
+              : overview}
+          </Overview>
+        </Content>
+      </Container>
+    </TouchableWithoutFeedback>
+  )
 );
