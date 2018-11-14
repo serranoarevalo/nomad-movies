@@ -5,12 +5,9 @@
     "primaryColor": "#000000",
     "description": "Beautiful App to find Movies and TV Shows",
     "slug": "nomad-movies",
-    "privacy": "unlisted",
+    "privacy": "public",
     "sdkVersion": "30.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/iconCorn.png",
@@ -22,15 +19,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "co.nomadcoders.nomadmovies",
+      "buildNumber": "1.0.0"
     },
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#000000"
+    },
+    "android": {
+      "package": "co.nomadcoders.nomadmovies"
     }
   }
 }
